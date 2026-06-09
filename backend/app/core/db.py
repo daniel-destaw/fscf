@@ -31,3 +31,10 @@ def init_db(session: Session) -> None:
             is_superuser=True,
         )
         user = crud.create_user(session=session, user_create=user_in)
+
+
+# Add this function for dependency injection
+def get_db():
+    """Get database session for dependency injection."""
+    with Session(engine) as session:
+        yield session

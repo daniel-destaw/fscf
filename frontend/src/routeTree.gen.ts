@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SupplierRegistrationRouteImport } from './routes/supplier-registration'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RecoverPasswordRouteImport } from './routes/recover-password'
@@ -19,6 +20,11 @@ import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
 import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
 import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
 
+const SupplierRegistrationRoute = SupplierRegistrationRouteImport.update({
+  id: '/supplier-registration',
+  path: '/supplier-registration',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
@@ -65,20 +71,22 @@ const LayoutAdminRoute = LayoutAdminRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof LayoutIndexRoute
   '/login': typeof LoginRoute
   '/recover-password': typeof RecoverPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/supplier-registration': typeof SupplierRegistrationRoute
   '/admin': typeof LayoutAdminRoute
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
-  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/recover-password': typeof RecoverPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/supplier-registration': typeof SupplierRegistrationRoute
   '/admin': typeof LayoutAdminRoute
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   '/recover-password': typeof RecoverPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/supplier-registration': typeof SupplierRegistrationRoute
   '/_layout/admin': typeof LayoutAdminRoute
   '/_layout/items': typeof LayoutItemsRoute
   '/_layout/settings': typeof LayoutSettingsRoute
@@ -99,20 +108,22 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/login'
     | '/recover-password'
     | '/reset-password'
     | '/signup'
+    | '/supplier-registration'
     | '/admin'
     | '/items'
     | '/settings'
-    | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/recover-password'
     | '/reset-password'
     | '/signup'
+    | '/supplier-registration'
     | '/admin'
     | '/items'
     | '/settings'
@@ -124,6 +135,7 @@ export interface FileRouteTypes {
     | '/recover-password'
     | '/reset-password'
     | '/signup'
+    | '/supplier-registration'
     | '/_layout/admin'
     | '/_layout/items'
     | '/_layout/settings'
@@ -136,10 +148,18 @@ export interface RootRouteChildren {
   RecoverPasswordRoute: typeof RecoverPasswordRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  SupplierRegistrationRoute: typeof SupplierRegistrationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/supplier-registration': {
+      id: '/supplier-registration'
+      path: '/supplier-registration'
+      fullPath: '/supplier-registration'
+      preLoaderRoute: typeof SupplierRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
@@ -171,7 +191,7 @@ declare module '@tanstack/react-router' {
     '/_layout': {
       id: '/_layout'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof LayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -229,6 +249,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecoverPasswordRoute: RecoverPasswordRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  SupplierRegistrationRoute: SupplierRegistrationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

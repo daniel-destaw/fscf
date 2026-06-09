@@ -1,11 +1,6 @@
 import { Link } from "@tanstack/react-router"
-
 import { useTheme } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import icon from "/assets/images/fastapi-icon.svg"
-import iconLight from "/assets/images/fastapi-icon-light.svg"
-import logo from "/assets/images/fastapi-logo.svg"
-import logoLight from "/assets/images/fastapi-logo-light.svg"
 
 interface LogoProps {
   variant?: "full" | "icon" | "responsive"
@@ -21,35 +16,61 @@ export function Logo({
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === "dark"
 
-  const fullLogo = isDark ? logoLight : logo
-  const iconLogo = isDark ? iconLight : icon
+  const textColor = isDark ? "text-zinc-100" : "text-black"
+
+  const fullLogo = (
+    <h1
+      className={cn(
+        "font-bold tracking-tight flex items-center gap-0",
+        className,
+      )}
+    >
+      {/* I */}
+      <span className={cn(textColor)}>I</span>
+
+      {/* nvo */}
+      <span className="text-chart-5">nvo</span>
+
+      {/* i with dot */}
+      <span className={cn("relative inline-block", textColor)}>
+        i
+        <span className="absolute -top-2 right-0 h-2 w-2 rounded-full bg-chart-5" />
+      </span>
+
+      {/* ca */}
+      <span className="text-chart-5">ca</span>
+    </h1>
+  )
+
+  const iconLogo = (
+    <div
+      className={cn(
+        "font-bold flex items-center justify-center",
+        className,
+      )}
+    >
+      <span className={cn(textColor)}>I</span>
+      <span className="text-chart-5">i</span>
+    </div>
+  )
 
   const content =
     variant === "responsive" ? (
       <>
-        <img
-          src={fullLogo}
-          alt="FastAPI"
-          className={cn(
-            "h-6 w-auto group-data-[collapsible=icon]:hidden",
-            className,
-          )}
-        />
-        <img
-          src={iconLogo}
-          alt="FastAPI"
-          className={cn(
-            "size-5 hidden group-data-[collapsible=icon]:block",
-            className,
-          )}
-        />
+        {/* full version */}
+        <div className="group-data-[collapsible=icon]:hidden">
+          {fullLogo}
+        </div>
+
+        {/* icon version */}
+        <div className="hidden group-data-[collapsible=icon]:flex">
+          {iconLogo}
+        </div>
       </>
+    ) : variant === "full" ? (
+      fullLogo
     ) : (
-      <img
-        src={variant === "full" ? fullLogo : iconLogo}
-        alt="FastAPI"
-        className={cn(variant === "full" ? "h-6 w-auto" : "size-5", className)}
-      />
+      iconLogo
     )
 
   if (!asLink) {

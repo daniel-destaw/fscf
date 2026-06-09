@@ -44,7 +44,7 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       {
-        title: "Log In - FastAPI Template",
+        title: "Log In - SCF",
       },
     ],
   }),
@@ -75,7 +75,7 @@ function Login() {
           className="flex flex-col gap-6"
         >
           <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="text-2xl font-bold">Login to your account</h1>
+            <h1 className="text-2xl font-bold">Login to Invoica</h1>
           </div>
 
           <div className="grid gap-4">
@@ -132,7 +132,7 @@ function Login() {
           <div className="text-center text-sm">
             Don't have an account yet?{" "}
             <RouterLink to="/signup" className="underline underline-offset-4">
-              Sign up
+              Request access
             </RouterLink>
           </div>
         </form>

@@ -1,20 +1,20 @@
 import { Appearance } from "@/components/Common/Appearance"
 import { Footer } from "./Footer"
 
-interface AuthLayoutProps {
+interface RegistrationLayoutProps {
   children: React.ReactNode
 }
 
-export function AuthLayout({ children }: AuthLayoutProps) {
+export function RegistrationLayout({ children }: RegistrationLayoutProps) {
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
-      {/* Left side */}
-      <div className="bg-primary dark:bg-zinc-900 relative hidden lg:flex lg:items-center lg:justify-center">
+    <div className="min-h-screen bg-background">
+      {/* Left side - Hidden on mobile, visible on desktop */}
+      <div className="bg-primary dark:bg-zinc-900 fixed left-0 top-0 h-full w-80 hidden lg:flex lg:flex-col lg:items-center lg:justify-center">
         <div className="absolute inset-0 bg-black/5 dark:hidden" />
 
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center px-6">
           {/* Invoica Logo */}
-          <h1 className="text-6xl md:text-7xl font-bold tracking-tight">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
             {/* I = White */}
             <span className="text-white dark:text-zinc-100">I</span>
 
@@ -33,22 +33,20 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
           <div className="mt-4 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
-          <p className="mt-4 max-w-xs mx-auto text-sm text-white/70 dark:text-zinc-400">
+          <p className="mt-4 text-sm text-white/70 dark:text-zinc-400">
             Smart Supply Chain Financing Solutions
           </p>
         </div>
       </div>
 
-      {/* Right side */}
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-end">
+      {/* Right side - Full width content */}
+      <div className="lg:pl-80 min-h-screen flex flex-col">
+        <div className="flex justify-end p-4">
           <Appearance />
         </div>
 
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
-            {children}
-          </div>
+        <div className="flex-1">
+          {children}
         </div>
 
         <Footer />
